@@ -1,0 +1,3 @@
+git+https://github.com/frothywater/kanade-tokenizer.git
+huggingface-hub
+torchaudio
