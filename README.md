@@ -1,36 +1,36 @@
 # ComfyUI-Kanade-S2S
 
-ComfyUI custom nodes for the [Kanade: A Simple Disentangled Tokenizer for Spoken Language Modeling](https://github.com/frothywater/kanade-tokenizer).
+Nodos personalizados para ComfyUI que integran el [Kanade: A Simple Disentangled Tokenizer for Spoken Language Modeling](https://github.com/frothywater/kanade-tokenizer).
 
-These nodes allow you to encode and decode speech using the Kanade speech tokenizer. It supports the latest `kanade-25hz-clean` model with HiFT vocoder.
+Estos nodos permiten codificar y decodificar voz utilizando el tokenizador Kanade. Incluye soporte para el último modelo `kanade-25hz-clean` usando el vocoder HiFT.
 
-## Nodes
+## Nodos Disponibles
 
-* **Kanade Model Loader**: Downloads and loads the Kanade model and Vocoder weights directly into ComfyUI's standard `models/kanade` folder.
-* **Kanade Encoder**: Takes standard ComfyUI `AUDIO` as input, and outputs disentangled `KANADE_TOKENS` and `KANADE_EMBEDDING`.
-* **Kanade Decoder**: Takes `KANADE_TOKENS` and `KANADE_EMBEDDING` and reconstructs them back into standard ComfyUI `AUDIO` output.
+* **Kanade Model Loader**: Descarga y carga los pesos del modelo Kanade y su Vocoder directamente en la carpeta estándar `models/kanade` de ComfyUI.
+* **Kanade Encoder**: Recibe la entrada estándar `AUDIO` de ComfyUI, y extrae y separa los tokens de contenido (`KANADE_TOKENS`) y su embedding global (`KANADE_EMBEDDING`).
+* **Kanade Decoder**: Toma los tokens y el embedding para reconstruirlos nuevamente a la salida estándar `AUDIO` de ComfyUI.
 
-## Installation
+## Instalación
 
-To install, you can either:
+Para instalarlo, puedes hacerlo de dos formas:
 
-1. Clone this repository into your `ComfyUI/custom_nodes` folder:
+1. Clonar este repositorio dentro de la carpeta `ComfyUI/custom_nodes`:
 ```bash
 cd ComfyUI/custom_nodes
-git clone <this_repo_url>
+git clone <URL_DE_ESTE_REPO>
 cd ComfyUI-Kanade-S2S
 pip install -r requirements.txt
 ```
-2. Or install via the ComfyUI Manager.
+2. O bien, utilizar el ComfyUI Manager (si está registrado).
 
-### Windows / `flash-attn` Warning
+### Advertencia para usuarios de Windows / `flash-attn`
 
-The base Kanade model utilizes `flash-attn` for efficient local window attention.
-Windows users often have trouble compiling this library. We recommend installing it using the following command in your ComfyUI python environment:
+El modelo base de Kanade utiliza la librería `flash-attn` para lograr un cálculo eficiente de atención de ventana local.
+Los usuarios de Windows a menudo se encuentran con problemas al intentar compilar esta biblioteca. Recomendamos instalarla utilizando el siguiente comando desde el entorno virtual de Python asociado a ComfyUI:
 
 ```bash
 uv pip install flash-attn --no-build-isolation
 ```
-*(Ensure `ninja` is installed on your system or the build will be very slow)*
+*(Asegúrate de tener instalada la herramienta `ninja` en tu sistema, o la compilación será extremadamente lenta)*
 
-If `flash-attn` is not available, the model will fall back to regular PyTorch SDPA implementation, which may not guarantee the same quality reported in the original paper.
+Si la librería `flash-attn` no está disponible en tu entorno, el modelo realizará un fallback a la implementación convencional SDPA de PyTorch, lo que podría no garantizar la misma calidad de síntesis reportada en el paper original.
